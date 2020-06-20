@@ -1,0 +1,24 @@
+1. Download github project
+
+2. Download data 
+  1) download zip file (DocRED-***.zip) from https://drive.google.com/drive/folders/1c5-0YwnoJx8NS6CV2f-NoTHR__BdkNqw?usp=sharing
+  2) move DocRED-***.zip to ./data/, and unzip it, get ./data/DocRED directory
+  3) mv all json files in ./data/DocRED/ to ./data/
+     mv all files in ./data/DocRED/DocRED_baseline_metadata/ to ./code/prepro_data
+     
+     mv ./data/DocRED/*.json ./data
+     mv ./data/DocRED/DocRED_baseline_metadata/* ./code/prepro_data
+     
+3. Prepare softwares like python3, pytorch [Do it when you need it]
+  cd code
+  pip3 install -r requirements.txt
+  
+4. Prepare data processing
+  python3 gen_data.py --in_path ../data --out_path prepro_data
+  
+5. Train
+  CUDA_VISIBLE_DEVICES=0 python3 train.py --model_name BiLSTM --save_name checkpoint_BiLSTM --train_prefix dev_train --test_prefix dev_dev
+  
+6. Test [not tested it yet]
+  CUDA_VISIBLE_DEVICES=0 python3 test.py --model_name BiLSTM --save_name checkpoint_BiLSTM --train_prefix dev_train --test_prefix dev_dev --input_theta 0.3601
+
